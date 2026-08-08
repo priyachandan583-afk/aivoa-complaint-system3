@@ -39,6 +39,8 @@ const complaintSlice = createSlice({
       if (priority) state.fields.priority = priority;
       state.missingFields = missing_fields || [];
       state.riskNotes = risk_notes || "";
+      state.savedId = null;
+      state.status = "Pending Triage";
     },
     resetForm(state) {
       state.fields = initialFields;

@@ -63,12 +63,22 @@ export default function AIAssistantPanel() {
   };
 
   const handleChatSend = async () => {
-    if (!chatInput.trim()) return;
-    const userMsg = { role: "user", text: chatInput };
-    dispatch(addChatMessage(userMsg));
-    setChatInput("");
-    const { reply } = await sendChatMessage(userMsg.text, savedId);
-    dispatch(addChatMessage({ role: "assistant", text: reply }));
+  if (!chatInput.trim()) return;
+  if (!savedId) {
+    dispatch(
+      addChatMessage({
+        role: "assistant",
+        text: "Please click \"Save Complaint\" first so I can answer questions about this specific record.",
+      })
+    );
+    return;
+  }
+  const userMsg = { role: "user", text: chatInput };
+  dispatch(addChatMessage(userMsg));
+  setChatInput("");
+  const { reply } = await sendChatMessage(userMsg.text, savedId);
+  dispatch(addChatMessage({ role: "assistant", text: reply }));
+
   };
 
   return (

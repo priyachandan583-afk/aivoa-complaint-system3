@@ -61,7 +61,7 @@ def risk_classification_node(state: dict) -> dict:
 
 
 def chat_response(question: str, complaint_context: dict) -> str:
-    context_json = json.dumps(complaint_context)
+    context_json = json.dumps(complaint_context, default=str)
     response = client.chat.completions.create(
         model=settings.groq_context_model,
         messages=[
